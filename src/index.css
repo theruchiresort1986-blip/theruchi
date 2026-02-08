@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 7% 4%;
+    --foreground: 40 20% 95%;
+    --card: 240 7% 4%;
+    --card-foreground: 40 20% 95%;
+    --popover: 240 7% 4%;
+    --popover-foreground: 40 20% 95%;
+    --primary: 30 35% 55%;
+    --primary-foreground: 40 20% 95%;
+    --secondary: 240 6% 10%;
+    --secondary-foreground: 40 20% 95%;
+    --muted: 240 6% 10%;
+    --muted-foreground: 35 10% 70%;
+    --accent: 30 35% 55%;
+    --accent-foreground: 40 20% 95%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 6% 15%;
+    --input: 240 6% 15%;
+    --ring: 30 35% 55%;
+    --radius: 0.625rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: 'Cormorant Garamond', serif;
+  }
+  
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .font-mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, #F4F1EC 0%, #B88A64 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .vignette-overlay {
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(11, 11, 13, 0.7) 100%);
+    pointer-events: none;
+  }
+  
+  .grain-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  
+  .glass-card {
+    background: rgba(244, 241, 236, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(244, 241, 236, 0.08);
+  }
+  
+  .btn-primary {
+    @apply px-8 py-3 rounded-full bg-[#B88A64] text-white font-medium transition-all duration-300;
+  }
+  
+  .btn-primary:hover {
+    @apply bg-[#a67b56] shadow-lg shadow-[#B88A64]/25;
+    transform: translateY(-2px);
+  }
+  
+  .btn-outline {
+    @apply px-8 py-3 rounded-full border border-[#F4F1EC]/30 text-[#F4F1EC] font-medium transition-all duration-300 backdrop-blur-sm;
+  }
+  
+  .btn-outline:hover {
+    @apply border-[#B88A64] bg-[#B88A64]/10;
+  }
+  
+  .section-pinned {
+    @apply relative w-screen h-screen overflow-hidden;
+  }
+  
+  .image-card {
+    @apply rounded-[10px] overflow-hidden shadow-[0_18px_50px_rgba(0,0,0,0.45)];
+    border: 1px solid rgba(244, 241, 236, 0.08);
+  }
+  
+  .micro-label {
+    @apply font-mono text-xs uppercase tracking-[0.18em] text-[#B8B2AA];
+  }
+  
+  .accent-rule {
+    @apply h-[2px] bg-[#B88A64];
+    transform-origin: left;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0B0D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #B88A64;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a67b56;
+}
+
+/* Selection */
+::selection {
+  background: rgba(184, 138, 100, 0.3);
+  color: #F4F1EC;
+}
