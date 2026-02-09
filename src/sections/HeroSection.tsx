@@ -50,7 +50,7 @@ const HeroSection = () => {
       tl.fromTo(
         sublineRef.current,
         { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7 },
+        { y: 0, opacity: 1, duration: 0.6 },
         '-=0.5'
       );
 
@@ -84,7 +84,7 @@ const HeroSection = () => {
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=130%',
+          end: '+=110%',
           pin: true,
           scrub: 0.6,
           onLeaveBack: () => {
@@ -103,7 +103,7 @@ const HeroSection = () => {
         bgRef.current,
         { scale: 1, y: 0 },
         { scale: 1.06, y: '-6vh', ease: 'power2.in' },
-        0.7
+        0.6
       );
 
       // Content exit
@@ -111,7 +111,7 @@ const HeroSection = () => {
         contentRef.current,
         { y: 0, opacity: 1 },
         { y: '-18vh', opacity: 0, ease: 'power2.in' },
-        0.7
+        0.6
       );
 
       // Scroll hint fade out early
@@ -119,7 +119,7 @@ const HeroSection = () => {
         scrollHintRef.current,
         { opacity: 1 },
         { opacity: 0, ease: 'power2.in' },
-        0.7
+        0.6
       );
     }, section);
 

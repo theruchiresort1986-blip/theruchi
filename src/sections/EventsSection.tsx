@@ -52,7 +52,7 @@ const EventsSection = () => {
           ease: 'power2.out',
           scrollTrigger: {
             trigger: headingRef.current,
-            start: 'top 80%',
+            start: 'top bottom',
             toggleActions: 'play none none reverse',
           },
         }
@@ -73,7 +73,7 @@ const EventsSection = () => {
             delay: index * 0.08,
             scrollTrigger: {
               trigger: card,
-              start: 'top 85%',
+              start: 'top bottom',
               toggleActions: 'play none none reverse',
             },
           }

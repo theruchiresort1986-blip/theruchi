@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Toaster } from 'sonner';
+import Lenis from 'lenis';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -16,11 +17,45 @@ import GallerySection from './sections/GallerySection';
 import TestimonialsSection from './sections/TestimonialsSection';
 import ContactSection from './sections/ContactSection';
 
+import 'lenis/dist/lenis.css';
 import './index.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
+  // Smooth scroll initialization
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      lenis.destroy();
+      gsap.ticker.remove(lenis.raf);
+    };
+  }, []);
+
   // Global scroll snap for pinned sections
   useEffect(() => {
     // Wait for all ScrollTriggers to be created
@@ -46,7 +81,7 @@ function App() {
           snapTo: (value: number) => {
             // Check if within any pinned range (with buffer)
             const inPinned = pinnedRanges.some(
-              (r) => value >= r.start - 0.02 && value <= r.end + 0.02
+              (r) => value >= r.start - 0.04 && value <= r.end + 0.04
             );
             if (!inPinned) return value; // Flowing section: free scroll
 

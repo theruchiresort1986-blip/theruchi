@@ -53,7 +53,7 @@ const TestimonialsSection = () => {
           ease: 'power2.out',
           scrollTrigger: {
             trigger: headingRef.current,
-            start: 'top 80%',
+            start: 'top bottom',
             toggleActions: 'play none none reverse',
           },
         }
@@ -74,7 +74,7 @@ const TestimonialsSection = () => {
             delay: index * 0.15,
             scrollTrigger: {
               trigger: card,
-              start: 'top 85%',
+              start: 'top bottom',
               toggleActions: 'play none none reverse',
             },
           }

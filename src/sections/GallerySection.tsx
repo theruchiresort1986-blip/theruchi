@@ -66,7 +66,7 @@ const GallerySection = () => {
           ease: 'power2.out',
           scrollTrigger: {
             trigger: headingRef.current,
-            start: 'top 80%',
+            start: 'top bottom',
             toggleActions: 'play none none reverse',
           },
         }
@@ -83,7 +83,7 @@ const GallerySection = () => {
           ease: 'power2.out',
           scrollTrigger: {
             trigger: gridRef.current,
-            start: 'top 85%',
+            start: 'top bottom',
             toggleActions: 'play none none reverse',
           },
         }

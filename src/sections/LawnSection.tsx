@@ -22,7 +22,7 @@ const LawnSection = () => {
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=130%',
+          end: '+=110%',
           pin: true,
           scrub: 0.6,
         },
@@ -76,28 +76,28 @@ const LawnSection = () => {
         imageCardRef.current,
         { x: 0, opacity: 1 },
         { x: '18vw', opacity: 0.35, ease: 'power2.in' },
-        0.7
+        0.6
       );
 
       scrollTl.fromTo(
         headlineRef.current,
         { x: 0, opacity: 1 },
         { x: '-10vw', opacity: 0.25, ease: 'power2.in' },
-        0.7
+        0.6
       );
 
       scrollTl.fromTo(
         [bodyRef.current, specsRef.current],
         { opacity: 1 },
         { opacity: 0.2, ease: 'power2.in' },
-        0.7
+        0.6
       );
 
       scrollTl.fromTo(
         ctaRef.current,
         { opacity: 1 },
         { opacity: 0, ease: 'power2.in' },
-        0.7
+        0.6
       );
     }, section);
 

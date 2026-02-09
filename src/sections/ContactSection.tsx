@@ -37,7 +37,7 @@ const ContactSection = () => {
           ease: 'power2.out',
           scrollTrigger: {
             trigger: leftRef.current,
-            start: 'top 80%',
+            start: 'top bottom',
             toggleActions: 'play none none reverse',
           },
         }
@@ -54,7 +54,7 @@ const ContactSection = () => {
           ease: 'power2.out',
           scrollTrigger: {
             trigger: formRef.current,
-            start: 'top 80%',
+            start: 'top bottom',
             toggleActions: 'play none none reverse',
           },
         }
@@ -74,7 +74,7 @@ const ContactSection = () => {
             delay: index * 0.05,
             scrollTrigger: {
               trigger: formRef.current,
-              start: 'top 75%',
+              start: 'top bottom',
               toggleActions: 'play none none reverse',
             },
           }
@@ -91,17 +91,46 @@ const ContactSection = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Thank you! We will get back to you within 24 hours.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      eventType: '',
-      eventDate: '',
-      message: '',
-    });
+
+    const loadingToast = toast.loading('Sending your enquiry...');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success('Thank you! We have received your enquiry and will get back to you shortly.', {
+          id: loadingToast,
+        });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          eventType: '',
+          eventDate: '',
+          message: '',
+        });
+      } else {
+        throw new Error(result.error || 'Failed to send enquiry');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : 'Something went wrong. Please try again later.',
+        { id: loadingToast }
+      );
+    }
   };
 
   return (
@@ -152,10 +181,10 @@ const ContactSection = () => {
                     Phone
                   </h4>
                   <a
-                    href="tel:+919999999999"
+                    href="tel:+919466569332"
                     className="font-body text-sm text-luxury-gray hover:text-luxury-bronze transition-colors"
                   >
-                    +91-99999-99999
+                    +91-94665-69332
                   </a>
                 </div>
               </div>
@@ -169,10 +198,10 @@ const ContactSection = () => {
                     Email
                   </h4>
                   <a
-                    href="mailto:hello@ruchiresorts.in"
+                    href="mailto:theruchiresort1986@gmail.com"
                     className="font-body text-sm text-luxury-gray hover:text-luxury-bronze transition-colors"
                   >
-                    hello@ruchiresorts.in
+                    theruchiresort1986@gmail.com
                   </a>
                 </div>
               </div>
@@ -195,7 +224,7 @@ const ContactSection = () => {
             {/* Map */}
             <div className="rounded-[10px] overflow-hidden h-[200px] lg:h-[250px]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3491.8377660470526!2d75.7214493150847!3d29.149446982191!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391232d8011d0c07%3A0x1c3e0b2d6e5a9b8!2sHisar%2C%20Haryana!5e0!3m2!1sen!2sin!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3484.5538163002884!2d75.72638359999999!3d29.1483481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3912336045e2b207%3A0xb161d80c6b20c0df!2sRuchi%20Resort!5e0!3m2!1sen!2sin!4v1770657628368!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: 'grayscale(100%) invert(92%)' }}

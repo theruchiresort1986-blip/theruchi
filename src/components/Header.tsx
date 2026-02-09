@@ -113,7 +113,7 @@ const Header = () => {
       {/* Floating Action Buttons */}
       <div className="fixed bottom-6 right-6 z-[100] flex flex-col gap-3">
         <a
-          href="https://wa.me/919999999999"
+          href="https://wa.me/919466569332"
           target="_blank"
           rel="noopener noreferrer"
           className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300"
@@ -127,7 +127,7 @@ const Header = () => {
           </svg>
         </a>
         <a
-          href="tel:+919999999999"
+          href="tel:+919466569332"
           className="w-14 h-14 rounded-full bg-luxury-bronze flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300"
         >
           <Phone size={24} className="text-white" />

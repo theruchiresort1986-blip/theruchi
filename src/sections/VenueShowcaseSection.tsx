@@ -24,7 +24,7 @@ const VenueShowcaseSection = () => {
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=130%',
+          end: '+=110%',
           pin: true,
           scrub: 0.6,
         },
@@ -97,21 +97,21 @@ const VenueShowcaseSection = () => {
         leftPanelRef.current,
         { x: 0, opacity: 1 },
         { x: '-18vw', opacity: 0.3, ease: 'power2.in' },
-        0.7
+        0.6
       );
 
       scrollTl.fromTo(
         imageCardRef.current,
         { x: 0, opacity: 1 },
         { x: '18vw', opacity: 0.35, ease: 'power2.in' },
-        0.7
+        0.6
       );
 
       scrollTl.fromTo(
         ruleRef.current,
         { scaleX: 1 },
         { scaleX: 0, transformOrigin: 'right', ease: 'power2.in' },
-        0.7
+        0.6
       );
     }, section);
 

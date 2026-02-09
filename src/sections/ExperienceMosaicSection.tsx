@@ -22,7 +22,7 @@ const ExperienceMosaicSection = () => {
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=130%',
+          end: '+=110%',
           pin: true,
           scrub: 0.6,
         },
@@ -81,42 +81,42 @@ const ExperienceMosaicSection = () => {
         topLeftCardRef.current,
         { x: 0, y: 0, opacity: 1 },
         { x: '-10vw', y: '-10vh', opacity: 0.3, ease: 'power2.in' },
-        0.7
+        0.6
       );
 
       scrollTl.fromTo(
         topRightCardRef.current,
         { x: 0, y: 0, opacity: 1 },
         { x: '10vw', y: '-10vh', opacity: 0.3, ease: 'power2.in' },
-        0.7
+        0.6
       );
 
       scrollTl.fromTo(
         bottomLeftCardRef.current,
         { x: 0, y: 0, opacity: 1 },
         { x: '-10vw', y: '10vh', opacity: 0.3, ease: 'power2.in' },
-        0.7
+        0.6
       );
 
       scrollTl.fromTo(
         bottomRightCardRef.current,
         { x: 0, y: 0, opacity: 1 },
         { x: '10vw', y: '10vh', opacity: 0.3, ease: 'power2.in' },
-        0.7
+        0.6
       );
 
       scrollTl.fromTo(
         headlineRef.current,
         { y: 0, opacity: 1 },
         { y: '-8vh', opacity: 0.25, ease: 'power2.in' },
-        0.7
+        0.6
       );
 
       scrollTl.fromTo(
         ctaRef.current,
         { scale: 1, opacity: 1 },
         { scale: 0.92, opacity: 0, ease: 'power2.in' },
-        0.7
+        0.6
       );
     }, section);
 
