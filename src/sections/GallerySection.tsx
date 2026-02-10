@@ -130,7 +130,7 @@ const GallerySection = () => {
             Gallery
           </h2>
           <p className="font-body text-base md:text-lg text-luxury-gray max-w-xl mx-auto">
-            A glimpse into celebrations at Ruchi Resorts.
+            A glimpse into celebrations at Ruchi Resort.
           </p>
         </div>
 
@@ -140,11 +140,10 @@ const GallerySection = () => {
             <button
               key={cat.value}
               onClick={() => setActiveCategory(cat.value)}
-              className={`px-4 lg:px-6 py-2 rounded-full font-body text-sm transition-all duration-300 ${
-                activeCategory === cat.value
+              className={`px-4 lg:px-6 py-2 rounded-full font-body text-sm transition-all duration-300 ${activeCategory === cat.value
                   ? 'bg-luxury-bronze text-white'
                   : 'bg-luxury-charcoal text-luxury-gray hover:text-luxury-cream'
-              }`}
+                }`}
             >
               {cat.label}
             </button>

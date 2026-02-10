@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Toaster } from 'sonner';
 import Lenis from 'lenis';
+import { Analytics } from "@vercel/analytics/react"
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -117,6 +118,9 @@ function App() {
 
   return (
     <div className="relative bg-luxury-black min-h-screen">
+      {/* Vercel Analytics */}
+      <Analytics />
+
       {/* Toast notifications */}
       <Toaster
         position="top-center"
@@ -156,3 +160,4 @@ function App() {
 }
 
 export default App;
+

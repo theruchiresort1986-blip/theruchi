@@ -1,7 +1,7 @@
 import { useState, useRef, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { MapPin, Phone, Mail, Send, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Send, Clock, CheckCircle2, X } from 'lucide-react';
 import { toast } from 'sonner';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,11 +15,14 @@ const ContactSection = () => {
     eventDate: '',
     message: '',
   });
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const fieldsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const modalContentRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
@@ -85,6 +88,46 @@ const ContactSection = () => {
     return () => ctx.revert();
   }, []);
 
+  // Modal Animation Logic
+  useLayoutEffect(() => {
+    if (showSuccess) {
+      document.body.style.overflow = 'hidden';
+      const tl = gsap.timeline();
+      tl.to(modalRef.current, {
+        opacity: 1,
+        visibility: 'visible',
+        duration: 0.3,
+        ease: 'power2.out'
+      })
+        .fromTo(modalContentRef.current,
+          { scale: 0.9, opacity: 0, y: 20 },
+          { scale: 1, opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.7)' },
+          "-=0.1"
+        );
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [showSuccess]);
+
+  const closeSuccessModal = () => {
+    gsap.to(modalContentRef.current, {
+      scale: 0.9,
+      opacity: 0,
+      y: 20,
+      duration: 0.3,
+      ease: 'power2.in',
+      onComplete: () => {
+        gsap.to(modalRef.current, {
+          opacity: 0,
+          duration: 0.2,
+          onComplete: () => {
+            setShowSuccess(false);
+          }
+        });
+      }
+    });
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -108,9 +151,8 @@ const ContactSection = () => {
       const result = await response.json();
 
       if (response.ok) {
-        toast.success('Thank you! We have received your enquiry and will get back to you shortly.', {
-          id: loadingToast,
-        });
+        toast.dismiss(loadingToast);
+        setShowSuccess(true);
         setFormData({
           name: '',
           email: '',
@@ -231,7 +273,7 @@ const ContactSection = () => {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Ruchi Resorts Location"
+                title="Ruchi Resort Location"
               />
             </div>
           </div>
@@ -354,6 +396,53 @@ const ContactSection = () => {
               </button>
             </form>
           </div>
+        </div>
+      </div>
+
+      {/* Success Modal */}
+      <div
+        ref={modalRef}
+        className="fixed inset-0 z-[999] flex items-center justify-center px-6 invisible opacity-0"
+        style={{ background: 'rgba(5, 5, 5, 0.85)', backdropFilter: 'blur(10px)' }}
+      >
+        <div
+          ref={modalContentRef}
+          className="relative max-w-lg w-full bg-luxury-charcoal border border-luxury-bronze/30 rounded-[20px] p-8 md:p-12 text-center shadow-2xl overflow-hidden"
+        >
+          {/* Animated Background Element */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-luxury-bronze to-transparent opacity-50" />
+
+          <button
+            onClick={closeSuccessModal}
+            className="absolute top-4 right-4 text-luxury-gray hover:text-luxury-cream transition-colors"
+          >
+            <X size={24} />
+          </button>
+
+          <div className="flex justify-center mb-6">
+            <div className="w-20 h-20 rounded-full bg-luxury-bronze/10 flex items-center justify-center text-luxury-bronze border border-luxury-bronze/20 shadow-[0_0_30px_rgba(197,160,89,0.15)]">
+              <CheckCircle2 size={40} />
+            </div>
+          </div>
+
+          <h2 className="font-display text-3xl md:text-4xl text-luxury-cream mb-4">
+            Thank You!
+          </h2>
+
+          <p className="font-body text-base md:text-lg text-luxury-gray mb-8 leading-relaxed">
+            Your enquiry has been successfully received. Our luxury event planning team will review your requirements and reach out to you within 24 hours.
+          </p>
+
+          <button
+            onClick={closeSuccessModal}
+            className="btn-primary w-full py-4 text-lg"
+          >
+            Back to Website
+          </button>
+
+          <p className="mt-6 font-display italic text-luxury-bronze/60 text-sm">
+            Ruchi Resort – Where Memories Are Crafted
+          </p>
         </div>
       </div>
     </section>

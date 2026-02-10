@@ -52,7 +52,7 @@ export default async function handler(req: any, res: any) {
 
     // Use 'onboarding@resend.dev' as a fallback if the domain isn't verified yet
     // This helps determine if the issue is domain-verification related
-    const fromEmail = 'Ruchi Resorts <notifications@ruchiresort.link>';
+    const fromEmail = 'Ruchi Resort <notifications@ruchiresort.link>';
 
     const { data, error } = await resend.emails.send({
       from: fromEmail,

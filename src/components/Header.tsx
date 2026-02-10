@@ -32,11 +32,10 @@ const Header = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
-          isScrolled
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${isScrolled
             ? 'bg-luxury-black/90 backdrop-blur-md py-4'
             : 'bg-transparent py-6'
-        }`}
+          }`}
       >
         <div className="w-full px-6 lg:px-12 flex items-center justify-between">
           {/* Logo */}
@@ -48,7 +47,7 @@ const Header = () => {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           >
-            Ruchi Resorts
+            Ruchi Resort
           </a>
 
           {/* Desktop Navigation */}
@@ -86,9 +85,8 @@ const Header = () => {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-[99] bg-luxury-black/98 backdrop-blur-lg transition-all duration-500 lg:hidden ${
-          isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-        }`}
+        className={`fixed inset-0 z-[99] bg-luxury-black/98 backdrop-blur-lg transition-all duration-500 lg:hidden ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+          }`}
       >
         <div className="flex flex-col items-center justify-center h-full gap-8">
           {navLinks.map((link, index) => (

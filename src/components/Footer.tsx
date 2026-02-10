@@ -20,7 +20,7 @@ const Footer = () => {
             {/* Brand */}
             <div className="lg:col-span-1">
               <h3 className="font-display text-2xl text-luxury-cream mb-4">
-                Ruchi Resorts
+                Ruchi Resort
               </h3>
               <p className="font-body text-sm text-luxury-gray mb-4">
                 Where celebrations feel like cinema. Luxury banquet hall and
@@ -131,7 +131,7 @@ const Footer = () => {
           {/* Bottom Bar */}
           <div className="pt-8 border-t border-luxury-cream/10 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="font-body text-xs text-luxury-gray text-center md:text-left">
-              © {new Date().getFullYear()} Ruchi Resorts. All rights reserved.
+              © {new Date().getFullYear()} Ruchi Resort. All rights reserved.
             </p>
             <div className="flex gap-6">
               <button className="font-body text-xs text-luxury-gray hover:text-luxury-bronze transition-colors">

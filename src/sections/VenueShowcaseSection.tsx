@@ -189,7 +189,7 @@ const VenueShowcaseSection = () => {
         ref={captionRef}
         className="hidden lg:block absolute left-[58vw] top-[88vh] font-mono text-xs uppercase tracking-widest text-luxury-gray"
       >
-        Ruchi Resorts • Hisar
+        Ruchi Resort • Hisar
       </p>
 
       {/* Mobile Image */}
