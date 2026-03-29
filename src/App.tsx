@@ -140,11 +140,11 @@ function App() {
       <main className="relative">
         {/* Pinned Sections */}
         <HeroSection />
+        <RoomsSection />
         <VenueShowcaseSection />
         <ExperienceMosaicSection />
         <BanquetHallSection />
         <LawnSection />
-        <RoomsSection />
 
         {/* Flowing Sections */}
         <EventsSection />

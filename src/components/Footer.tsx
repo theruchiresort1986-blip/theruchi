@@ -19,9 +19,16 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
             {/* Brand */}
             <div className="lg:col-span-1">
-              <h3 className="font-display text-2xl text-luxury-cream mb-4">
-                Ruchi Resort
-              </h3>
+              <div className="mb-6 flex items-center gap-3">
+                <img
+                  src="/logo-no-bg.png"
+                  alt="Ruchi Resort Logo"
+                  className="h-12 w-auto"
+                />
+                <span className="font-display text-2xl text-luxury-cream">
+                  Ruchi Resort
+                </span>
+              </div>
               <p className="font-body text-sm text-luxury-gray mb-4">
                 Where celebrations feel like cinema. Luxury banquet hall and
                 lawn venue in Hisar, Haryana.

@@ -143,19 +143,21 @@ const VenueShowcaseSection = () => {
           className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[clamp(34px,3.6vw,52px)] text-luxury-cream leading-[1.0] mb-6"
         >
           <span className="word inline-block">A</span>{' '}
+          <span className="word inline-block">hotel</span>{' '}
+          <span className="word inline-block">&</span>{' '}
           <span className="word inline-block">venue</span>{' '}
           <span className="word inline-block">designed</span>{' '}
           <span className="word inline-block">for</span>{' '}
-          <span className="word inline-block">once-in-a-lifetime</span>{' '}
-          <span className="word inline-block">moments.</span>
+          <span className="word inline-block">unforgettable</span>{' '}
+          <span className="word inline-block">stays.</span>
         </h2>
 
         <p
           ref={bodyRef}
           className="font-body text-base md:text-lg text-luxury-gray max-w-md mb-8"
         >
-          From intimate gatherings to grand receptions, our spaces adapt to your
-          vision—flawless service, timeless décor, and cuisine that delights.
+          From boutique hotel rooms to grand banquet halls, Ruchi Resort offers
+          the perfect blend of luxury accommodation and celebratory spaces.
         </p>
 
         {/* Accent Rule */}

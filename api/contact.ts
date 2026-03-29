@@ -6,12 +6,13 @@ export default async function handler(req: any, res: any) {
 
   // 1. Validate request method
   if (req.method !== 'POST') {
-    console.log('Method not allowed');
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   // 2. Check Environment Variables
   const apiKey = process.env.RESEND_API_KEY;
+  const toEmail = process.env.CONTACT_FORM_RECIPIENT || 'theruchiresort1986@gmail.com';
+
   if (!apiKey) {
     console.error('CRITICAL: RESEND_API_KEY is missing in environment');
     return res.status(500).json({
@@ -20,13 +21,7 @@ export default async function handler(req: any, res: any) {
     });
   }
 
-  // Log masked API key for debugging (e.g., "re_Abc...Xyz")
-  const maskedKey = apiKey.length > 10
-    ? `${apiKey.substring(0, 5)}...${apiKey.substring(apiKey.length - 4)}`
-    : 'Invalid/Short Key';
-  console.log('Using API Key:', maskedKey);
-
-  // 3. Parse Body (Sometimes Vercel doesn't parse it automatically)
+  // 3. Parse Body
   let body = req.body;
   if (typeof body === 'string') {
     try {
@@ -36,66 +31,61 @@ export default async function handler(req: any, res: any) {
     }
   }
 
-  console.log('Body received:', JSON.stringify(body));
-
   const { name, email, phone, eventType, eventDate, message } = body || {};
 
   if (!name || !email || !phone) {
-    console.warn('Validation failed: Missing fields');
     return res.status(400).json({ error: 'Missing required fields: name, email, and phone are required' });
   }
 
   try {
     const resend = new Resend(apiKey);
 
-    console.log(`Attempting to send email for ${name} to theruchiresort1986@gmail.com...`);
-
-    // Use 'onboarding@resend.dev' as a fallback if the domain isn't verified yet
-    // This helps determine if the issue is domain-verification related
+    // Using a verified domain email as primary, but we'll try to handle verification issues
+    // Note: 'onboarding@resend.dev' can only send to the email associated with the Resend account.
     const fromEmail = 'Ruchi Resort <notifications@ruchiresort.link>';
 
     const { data, error } = await resend.emails.send({
       from: fromEmail,
-      to: ['theruchiresort1986@gmail.com'],
+      to: [toEmail],
       subject: `New Event Enquiry: ${eventType || 'General'} - ${name}`,
       replyTo: email,
       html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; padding: 20px; border-radius: 10px;">
-          <h2 style="color: #1a1a1a; border-bottom: 2px solid #c5a059; padding-bottom: 10px;">New Website Enquiry</h2>
-          <p style="font-size: 16px;">You have received a new event enquiry from your website.</p>
-          <hr />
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Phone:</strong> ${phone}</p>
-          <p><strong>Event:</strong> ${eventType}</p>
-          <p><strong>Date:</strong> ${eventDate || 'N/A'}</p>
-          <div style="margin-top: 20px; padding: 15px; background: #f4f4f4;">
-            <strong>Message:</strong><br />${message || 'No message'}
+        <div style="font-family: 'Inter', sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #1a1a1a; padding: 40px; border-radius: 12px; background-color: #0B0B0D; color: #F4F1EC;">
+          <h1 style="color: #B88A64; font-family: 'Cormorant Garamond', serif; font-size: 28px; margin-bottom: 20px; border-bottom: 1px solid rgba(184, 138, 100, 0.2); padding-bottom: 15px;">New Event Enquiry</h1>
+          
+          <p style="font-size: 16px; color: #B8B2AA; margin-bottom: 30px;">You have received a new enquiry from the Ruchi Resort website.</p>
+          
+          <div style="margin-bottom: 25px;">
+            <p style="margin: 5px 0;"><strong style="color: #B88A64;">Name:</strong> ${name}</p>
+            <p style="margin: 5px 0;"><strong style="color: #B88A64;">Email:</strong> ${email}</p>
+            <p style="margin: 5px 0;"><strong style="color: #B88A64;">Phone:</strong> ${phone}</p>
+            <p style="margin: 5px 0;"><strong style="color: #B88A64;">Event Type:</strong> ${eventType || 'Not specified'}</p>
+            <p style="margin: 5px 0;"><strong style="color: #B88A64;">Event Date:</strong> ${eventDate || 'Not specified'}</p>
           </div>
+          
+          <div style="padding: 20px; background: rgba(184, 138, 100, 0.05); border-left: 3px solid #B88A64; border-radius: 4px;">
+            <strong style="color: #B88A64; display: block; margin-bottom: 10px;">Message:</strong>
+            <p style="margin: 0; line-height: 1.6;">${message || 'No additional details provided.'}</p>
+          </div>
+          
+          <p style="margin-top: 40px; font-size: 12px; color: #555; text-align: center;">
+            This email was sent from the contact form on ruchiresort.link
+          </p>
         </div>
       `,
     });
 
     if (error) {
-      console.error('Resend API Error:', JSON.stringify(error));
-
-      // Detailed error mapping
-      const statusCode = (error as any).statusCode || (error as any).status || 400;
-      return res.status(statusCode).json({
-        error: 'Resend API Error',
-        message: (error as any).message || 'Failed to send email',
-        details: error
+      console.error('Resend API Error:', error);
+      return res.status(400).json({
+        error: 'Communication Error',
+        message: 'We encountered an issue sending the enquiry email. Please try again later.'
       });
     }
 
-    console.log('SUCCESS: Email sent!', data?.id);
-    return res.status(200).json({ success: true, data });
+    return res.status(200).json({ success: true, id: data?.id });
   } catch (err: any) {
     console.error('CRASH in handler:', err);
-    return res.status(500).json({
-      error: 'Internal Server Error',
-      message: err.message || 'An unexpected error occurred',
-      stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
-    });
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 }

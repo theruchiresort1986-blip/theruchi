@@ -16,6 +16,7 @@ const ContactSection = () => {
     message: '',
   });
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
@@ -136,7 +137,9 @@ const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
+    setIsSubmitting(true);
     const loadingToast = toast.loading('Sending your enquiry...');
 
     try {
@@ -172,6 +175,8 @@ const ContactSection = () => {
           : 'Something went wrong. Please try again later.',
         { id: loadingToast }
       );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -389,10 +394,20 @@ const ContactSection = () => {
 
               <button
                 type="submit"
-                className="w-full btn-primary flex items-center justify-center gap-2"
+                disabled={isSubmitting}
+                className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Send size={18} />
-                Send Enquiry
+                {isSubmitting ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send size={18} />
+                    Send Enquiry
+                  </>
+                )}
               </button>
             </form>
           </div>

@@ -14,9 +14,9 @@ const Header = () => {
   }, []);
 
   const navLinks = [
+    { label: 'Rooms', href: '#rooms' },
     { label: 'Venues', href: '#banquet' },
     { label: 'Events', href: '#events' },
-    { label: 'Stay', href: '#rooms' },
     { label: 'Gallery', href: '#gallery' },
     { label: 'Contact', href: '#contact' },
   ];
@@ -33,21 +33,28 @@ const Header = () => {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${isScrolled
-            ? 'bg-luxury-black/90 backdrop-blur-md py-4'
-            : 'bg-transparent py-6'
+          ? 'bg-luxury-black/90 backdrop-blur-md py-4'
+          : 'bg-transparent py-6'
           }`}
       >
         <div className="w-full px-6 lg:px-12 flex items-center justify-between">
           {/* Logo */}
           <a
             href="#"
-            className="font-display text-2xl lg:text-3xl text-luxury-cream tracking-tight"
+            className="flex items-center gap-3 group"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           >
-            Ruchi Resort
+            <img
+              src="/logo-no-bg.png"
+              alt="Ruchi Resort Logo"
+              className="h-10 lg:h-12 w-auto"
+            />
+            <span className="font-display text-xl lg:text-2xl text-luxury-cream tracking-tight group-hover:text-luxury-bronze transition-colors duration-300">
+              Ruchi Resort
+            </span>
           </a>
 
           {/* Desktop Navigation */}

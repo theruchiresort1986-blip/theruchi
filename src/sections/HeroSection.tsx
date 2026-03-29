@@ -165,7 +165,7 @@ const HeroSection = () => {
           ref={labelRef}
           className="micro-label mb-6 text-center"
         >
-          Banquet Hall & Lawn • Hisar
+          Luxury Hotel & Banquet Hall • Hisar
         </p>
 
         {/* Headline */}

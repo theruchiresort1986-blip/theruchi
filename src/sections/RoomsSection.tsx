@@ -135,16 +135,16 @@ const RoomsSection = () => {
           ref={headlineRef}
           className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[clamp(34px,3.6vw,52px)] text-luxury-cream mb-6"
         >
-          Rooms & Stay
+          Luxury Hotel Rooms
         </h2>
 
         <p
           ref={bodyRef}
           className="font-body text-base md:text-lg text-luxury-gray mb-8"
         >
-          Clean, comfortable rooms designed for wedding families and outstation
-          guests. Rest, refresh, and return to the celebration without leaving
-          the venue.
+          Experience tranquility in our boutique hotel rooms. Meticulously
+          designed for comfort, our AC suites offer a peaceful retreat for
+          travelers, families, and guests seeking refined hospitality.
         </p>
 
         {/* Amenities */}
@@ -172,7 +172,7 @@ const RoomsSection = () => {
           onClick={() => scrollToSection('#contact')}
           className="btn-primary"
         >
-          Ask About Stay Packages
+          Book Your Stay
         </button>
       </div>
     </section>
